@@ -60,7 +60,9 @@ Graph.prototype.forEachNode = function(cb) {
   
   for (var key in this) {
     if (Array.isArray(this[key])) {
-      cb.call(this, key, arguments[1]);
+      var args = Array.from(arguments);
+      args[0] = key; //assumes key is first parameter
+      cb.apply(this, args);
     }
   }
 };
