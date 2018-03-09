@@ -37,4 +37,12 @@ describe('binarySearchTree', function() {
     binarySearchTree.depthFirstLog(func);
     expect(array).to.eql([5, 2, 3, 7]);
   });
+
+  it('should handle values already in the tree', function(){
+    // Create one tree - already done by beforeEach
+    // Call insert with the same value
+    // Check that .left and .right are still null
+    binarySearchTree.insert(5);
+    expect(!binarySearchTree.left && !binarySearchTree.right).to.equal(true);
+  });
 });
