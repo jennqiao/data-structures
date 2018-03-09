@@ -28,30 +28,68 @@ var methods = {
       //base case, if left/right is null, set it
       //otherwise, this.left.insert(value)
 
-      
-
       var node = BinarySearchTree(value);
 
       
-      if (this.value > value) {
+      if (value < this.value) {
         
-        if (this.left) {
-          this.left.insert(value);
-        } else {
-          this.left = node;
-        }
-        //this.left ? this.left.insert(value) : this.left = node;
+        // if (this.left) {
+        //   this.left.insert(value);
+        // } else {
+        //   this.left = node;
+        // }
+        this.left ? this.left.insert(value) : this.left = node;
       } else {
-        this.right = this.right ? this.right.insert(value) : node;
+         this.right ? this.right.insert(value) : this.right = node;
       }
       
-      return this
   },
 
-  contains: function() {
+  contains: function(value) {
+
+    
+    //if it's greater than and this.right !==null, call contains on this.right
+    //  if it is null, then return false
+    //if it's less than, call contains on this.left 
+    //if it's equal, return true;
+
+    if (value < this.value)  {
+      if (this.left) {
+        return this.left.contains(value);  
+      } else {
+        return false;
+      }
+
+    } else if (value > this.value) {
+      if (this.right) {
+        return this.right.contains(value);
+      } else {
+        return false;  
+      }
+    } else if (value === this.value) {
+      return true;
+    }
+    
   },
 
-  depthFirstLog: function() {
+  depthFirstLog: function(cb) {
+
+    //call cb on current node
+    //if left exists,
+    //  recurse function on left property
+    //if right exists
+    //recurse on right
+
+    cb.call(this, this.value);
+    if (this.left) {
+      this.left.depthFirstLog(cb);
+    }
+    if (this.right) {
+      this.right.depthFirstLog(cb);
+    }
+    
+
+    
   }
 
 };
