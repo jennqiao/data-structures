@@ -22,6 +22,7 @@ Graph.prototype.removeNode = function(node) {
     //delete key from obj
     //for each node in obj, remove edge
     this.forEachNode(this.removeEdge, node)
+    // We could also have passed in an anonymous function
     delete this[node];
 };
 
@@ -58,10 +59,10 @@ Graph.prototype.forEachNode = function(cb) {
   //for each node, perform cb with that node as the argument
   //callback.apply(arguments.slice(1))
   
-  for (var key in this) {
-    if (Array.isArray(this[key])) {
+  for (var node in this) {
+    if (Array.isArray(this[node])) { // Checks that it's a node and not a method
       var args = Array.from(arguments);
-      args[0] = key; //assumes key is first parameter
+      args[0] = node; //assumes node is first parameter, replaces cb in arguments with the key
       cb.apply(this, args);
     }
   }

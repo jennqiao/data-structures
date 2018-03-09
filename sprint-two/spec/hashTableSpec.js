@@ -47,6 +47,12 @@ describe('hashTable', function() {
     window.getIndexBelowMaxForKey = oldHashFunction;
   });
 
+  it('should not use plain objects', function(){
+    hashTable.insert('Steven', 'Tyler')
+    var index = getIndexBelowMaxForKey('Steven', hashTable._limit);
+    expect(typeof hashTable[index] === 'object' && !Array.isArray(hashTable[index])).to.equal(false);
+  });
+
   // (Advanced! Remove the extra "x" when you want the following tests to run)
   xit ('should double in size when needed', function() {
     _.each(people, function(person) {

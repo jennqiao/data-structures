@@ -68,4 +68,14 @@ describe('graph', function() {
     expect(graph.hasEdge(3, 5)).to.equal(true);
     expect(graph.hasEdge(5, 5)).to.equal(true);
   });
+
+  it('should allow for any number of parameters for callbacks', function(){
+    var arr = [];
+    var addThree = function(node, num1, num2){
+      arr.push(Number(node) + num1 + num2);
+    }
+    graph.addNode(5);
+    graph.forEachNode(addThree, 1, 2);
+    expect(arr[0]).to.equal(8);
+  });
 });
