@@ -24,4 +24,12 @@ describe('set', function() {
     expect(set.contains('Mel Gibson')).to.equal(false);
   });
 
+  it ('should not add duplicate values', function() {
+    set.add('Susan Sarandon');
+    var replicatedSet = _.extend({}, set);
+    set.add('Susan Sarandon');
+    expect(set).to.eql(replicatedSet);
+  
+  });
+
 });
