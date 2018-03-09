@@ -8,19 +8,36 @@ var HashTable = function() {
 HashTable.prototype.insert = function(k, v) {
   var index = getIndexBelowMaxForKey(k, this._limit);
   if(!this[index]){
-    this[index] = {};
+    this[index] = [];
+  } 
+  var hasKey = false;
+  for (var i = 0; i < this[index].length; i++) {
+    if (this[index][i][0] === k) {
+      this[index][i][1] = v;
+      hasKey = true; // Alt: use return instead of flag
+    }
   }
-  this[index][k] = v;
+  if(!hasKey){ // And then you could delete the if here
+    this[index].push([k, v]);
+  }
 };
 
 HashTable.prototype.retrieve = function(k) {
   var index = getIndexBelowMaxForKey(k, this._limit);
-  return this[index][k];
+  for(var i = 0; i < this[index].length; i++){
+    if(this[index][i][0] === k){
+      return this[index][i][1];
+    }
+  }
 };
 
 HashTable.prototype.remove = function(k) {
   var index = getIndexBelowMaxForKey(k, this._limit);
-  delete this[index][k];
+  for(var i = 0; i < this[index].length; i++){
+    if(this[index][i][0] === k){
+      this[index].splice(i, 1);
+    }
+  }
 };
 
 
