@@ -1,21 +1,28 @@
 var Set = function() {
   var set = Object.create(setPrototype);
-  set._storage = null; // fix me
+  set._limit = 8;
+  set._storage = LimitedArray(set._limit); 
   return set;
 };
 
 var setPrototype = {};
 
 setPrototype.add = function(item) {
-  this[item] = true;
+  var index = getIndexBelowMaxForKey(item, this._limit);
+  if(!this[index]){
+    this[index] = {};
+  }
+  this[index][item] = true;
 };
 
 setPrototype.contains = function(item) {
-  return Boolean(this[item]);
+  var index = getIndexBelowMaxForKey(item, this._limit);
+  return Boolean(this[index][item]);
 };
 
 setPrototype.remove = function(item) {
-  delete this[item];
+  var index = getIndexBelowMaxForKey(item, this._limit);
+  delete this[index][item];
 };
 
 /*
