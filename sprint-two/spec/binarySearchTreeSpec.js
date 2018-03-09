@@ -38,7 +38,7 @@ describe('binarySearchTree', function() {
     expect(array).to.eql([5, 2, 3, 7]);
   });
 
-  it('should handle values already in the tree', function(){
+  it('should not insert values already in the tree', function(){
     // Create one tree - already done by beforeEach
     // Call insert with the same value
     // Check that .left and .right are still null

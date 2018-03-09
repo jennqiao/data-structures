@@ -39,8 +39,8 @@ var methods = {
         //   this.left = node;
         // }
         this.left ? this.left.insert(value) : this.left = node;
-      } else {
-         this.right ? this.right.insert(value) : this.right = node;
+      } else if (value > this.value) {
+        this.right ? this.right.insert(value) : this.right = node;
       }
       
   },
