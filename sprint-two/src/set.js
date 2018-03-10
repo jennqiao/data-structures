@@ -1,4 +1,7 @@
-var Set = function() {
+
+
+
+/*var Set = function() {
   var set = Object.create(setPrototype);
   set._limit = 8;
   set._storage = LimitedArray(set._limit); 
@@ -9,22 +12,33 @@ var setPrototype = {};
 
 setPrototype.add = function(item) {
   var index = getIndexBelowMaxForKey(item, this._limit);
-  if(!this[index]){
-    this[index] = {};
+  if(!this._storage.get(index)){
+    this._storage.set(index, []);
   }
-  this[index][item] = true;
+  if(!this.contains(item)){
+    this._storage.get(index).push(item);
+  }
 };
 
 setPrototype.contains = function(item) {
   var index = getIndexBelowMaxForKey(item, this._limit);
-  return Boolean(this[index][item]);
+  var bucket = this._storage.get(index);
+  var hasFound = false;
+  if(bucket) {
+    for(var i = 0; i < bucket.length; i++) {
+      if(!hasFound){
+
+      }
+    }
+  }
+  return Boolean([item]);
 };
 
 setPrototype.remove = function(item) {
   var index = getIndexBelowMaxForKey(item, this._limit);
-  delete this[index][item];
+  delete this._storage(index)[item];
 };
-
+*/
 /*
  * Complexity: What is the time complexity of the above functions?
  */
