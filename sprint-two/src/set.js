@@ -1,5 +1,13 @@
-
-
+var Set = function() {
+  var set = new HashTable();
+  set.add = function(item){
+    set.insert(item, true);
+  }
+  set.contains = function(item){
+    return Boolean(set.retrieve(item));
+  }
+  return set;
+};
 
 /*var Set = function() {
   var set = Object.create(setPrototype);
