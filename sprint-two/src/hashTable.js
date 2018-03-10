@@ -11,15 +11,16 @@ HashTable.prototype.insert = function(k, v) {
   if(!this._storage.get(index)){
     this._storage.set(index, []);
   } 
+  var bucket = this._storage.get(index);
   var hasKey = false;
   for (var i = 0; i < this._storage.get(index).length; i++) {
-    if (this._storage.get(index)[i][0] === k) {
-      this._storage.get(index)[i][1] = v;
+    if (bucket[i][0] === k) {
+      bucket[i][1] = v;
       hasKey = true; // Alt: use return instead of flag
     }
   }
   if(!hasKey){ // And then you could delete the if here
-    this._storage.get(index).push([k, v]);
+    bucket.push([k, v]);
     this._counter++;
     if(this._counter > this._limit*.75) {
       this.resizeHash(2);
@@ -31,10 +32,11 @@ HashTable.prototype.insert = function(k, v) {
 
 HashTable.prototype.retrieve = function(k) {
   var index = getIndexBelowMaxForKey(k, this._limit);
-  if (this._storage.get(index)) {
-    for(var i = 0; i < this._storage.get(index).length; i++){
-      if(this._storage.get(index)[i][0] === k){
-        return this._storage.get(index)[i][1];
+  var bucket = this._storage.get(index);
+  if (bucket) {
+    for(var i = 0; i < bucket.length; i++){
+      if(bucket[i][0] === k){
+        return bucket[i][1];
       }
     }
   } 
@@ -42,10 +44,11 @@ HashTable.prototype.retrieve = function(k) {
 
 HashTable.prototype.remove = function(k) {
   var index = getIndexBelowMaxForKey(k, this._limit);
-  if (this._storage.get(index)){
-    for(var i = 0; i < this._storage.get(index).length; i++){
-      if(this._storage.get(index)[i][0] === k){
-        this._storage.get(index).splice(i, 1);
+  var bucket = this._storage.get(index);
+  if (bucket){
+    for(var i = 0; i < bucket.length; i++){
+      if(bucket[i][0] === k){
+        bucket.splice(i, 1);
         this._counter--;
       }
     }
