@@ -90,8 +90,49 @@ var methods = {
     
 
     
-  }
+  },
 
+  breadthFirstLog: function(cb) {
+
+  //previous binary number solution:
+  //while any nodes' children is greater than 0 (counter) aka not null
+  //increment by 1
+  //2^ increment = how many binary numbers we need
+  //for each digit until the 2^ increment hits
+    
+    
+    //helper function: count up by binary number
+    //helper function: translate binary code to directions
+      //  create [] with length of at least the increment, and add 0s to front if necessary
+      //var node name
+      //loop through each elem in array
+      //if 0, node name += .left, if right node name += 
+      //this.left.left.right
+    //read array, if 0, go left, if right, go right
+
+
+  //queue solution!
+
+  //create a queue
+  //add first node to queue
+  //dequeue, and call function on that result
+  //add that node's children to the queue
+  //repeat dequeue until the queue is empty
+
+    var queue = [];
+    queue.push(this); //0 is front, last is back
+    
+    while (queue.length > 0) {
+      var result = queue.shift();
+      if (result.left){
+        queue.push(result.left);
+      } 
+      if (result.right) {
+        queue.push(result.right);
+      }
+      cb.call(result, result.value);
+    }
+  }
 };
 
 
