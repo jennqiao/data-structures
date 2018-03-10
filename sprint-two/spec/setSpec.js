@@ -32,4 +32,17 @@ describe('set', function() {
   
   });
 
+  it ('should store strings and equivalent numbers separately', function() {
+    set.add('3');
+    set.add(3);
+    set.remove('3');
+    expect(set.contains(3)).to.equal(true);
+  });
+
+  it ('should store plain objects', function() {
+    var obj = {'a': 1, 'b': true};
+    set.add(obj);
+    expect(set.contains(obj)).to.equal(true);
+  });
+
 });

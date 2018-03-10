@@ -2,14 +2,14 @@ var Set = function() {
   var set = new HashTable();
   set.add = function(item){
     set.insert(JSON.stringify(item), true);
-  }
+  };
   set.contains = function(item){
     return Boolean(set.retrieve(JSON.stringify(item)));
-  }
+  };
   var remove = set.remove;
   set.remove = function(item){
     remove.call(set, JSON.stringify(item));
-  }
+  };
   return set;
 };
 
